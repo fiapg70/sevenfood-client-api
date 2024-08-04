@@ -1,5 +1,6 @@
 package br.com.sevenfood.client.sevenfoodclientapi.application.event;
 
+import br.com.sevenfood.client.sevenfoodclientapi.application.client.RequestService;
 import br.com.sevenfood.client.sevenfoodclientapi.application.event.dto.MessageNotification;
 import br.com.sevenfood.client.sevenfoodclientapi.application.event.dto.SNSNotification;
 import br.com.sevenfood.client.sevenfoodclientapi.core.domain.Client;
@@ -23,15 +24,17 @@ public class PrivacyNotificationListener {
 
     private final SqsTemplate sqsTemplate;
     private final ClientRepositoryPort clientRepositoryPort;
+    private final RequestService requestService;
 
     @Autowired
-    public PrivacyNotificationListener(SqsTemplate sqsTemplate, ClientRepositoryPort clientRepositoryPort) {
+    public PrivacyNotificationListener(SqsTemplate sqsTemplate, ClientRepositoryPort clientRepositoryPort, RequestService requestService) {
         this.sqsTemplate = sqsTemplate;
         this.clientRepositoryPort = clientRepositoryPort;
+        this.requestService = requestService;
     }
 
     @SqsListener("${aws.privacyNotification.queueName}")
-    public void listen(Message<?> message) {
+    public void listen(Message<?> message, Acknowledgement acknowledgement) {
         try {
             log.info("Message received from queue: {}", message);
             log.info("Message Payload: {}", message.getPayload());
@@ -46,12 +49,17 @@ public class PrivacyNotificationListener {
                 if (messageNotification != null) {
                     log.info("Message Notification: {}", messageNotification);
                     String userName = messageNotification.requestId();
+                    String status = messageNotification.status();
                     Client clientFound = clientRepositoryPort.findByCode(userName);
-                    if (clientFound != null) {
+                    if (clientFound != null && !status.equals("REMOVED")) {
                         log.info("Client Found: {}", clientFound);
                         clientRepositoryPort.remove(clientFound.getId());
-                        Acknowledgement.acknowledge(message);
+                        requestService.updateRequestStatus(userName, "REMOVED");
+                    } else {
+                        requestService.updateRequestStatus(userName, "REJECTED");
+                        log.info("Client not excluded: {}", userName);
                     }
+                    acknowledgement.acknowledge();
                 }
             }
         } catch (Exception e) {

@@ -47,6 +47,9 @@ spring:
       credentials:
         access-key: ${AWS_ACCESS_KEY_ID}
         secret-key: ${AWS_SECRET_ACCESS_KEY}
+      sqs:
+        listener:
+          acknowledge-mode: MANUAL
     region:
       static: us-east-1
 
@@ -55,6 +58,10 @@ aws:
     queueName: ${AWS_SQS_QUEUE_NAME}
     queueUrl: ${AWS_SQS_QUEUE_URL}
     queueArn: ${AWS_SQS_QUEUE_ARN}
+
+api:
+  gateway:
+    url: ${API_GATEWAY_URL_PRIVACY_NOTIFICATION_STATUS}
 
   #security:
   #  oauth2:
