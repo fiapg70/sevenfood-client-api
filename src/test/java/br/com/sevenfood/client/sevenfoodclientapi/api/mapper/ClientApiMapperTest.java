@@ -30,7 +30,6 @@ class ClientApiMapperTest {
         ClientRequest request = new ClientRequest();
         request.setName("Client Name");
         request.setDescription("Client Description");
-        request.setPrice(BigDecimal.valueOf(10.0));
         request.setPic("pic.jpg");
 
         // Act

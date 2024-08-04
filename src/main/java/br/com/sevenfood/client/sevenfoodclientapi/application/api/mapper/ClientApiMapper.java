@@ -14,7 +14,12 @@ public interface ClientApiMapper {
 
     @Mapping(source = "name", target = "name")
     @Mapping(source = "description", target = "description")
+    @Mapping(source = "email", target = "email")
+    @Mapping(source = "mobile", target = "mobile")
     @Mapping(source = "pic", target = "pic")
+    @Mapping(source = "socialId", target = "socialId")
+    @Mapping(source = "address", target = "address")
+    @Mapping(source = "dataProcessingConsent", target = "dataProcessingConsent")
     @Mapping(source = "clientTypeId", target = "clientTypeId")
     Client fromRequest(ClientRequest request);
 

@@ -11,4 +11,5 @@ public interface ClientRepositoryPort {
     List<Client> findAll();
     Client update(Long id, Client client);
     Client findByCode(String code);
+    Client findByName(String name);
 }

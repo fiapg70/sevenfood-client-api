@@ -13,7 +13,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,8 +25,7 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping("/v1/product-categories")
-@AllArgsConstructor(onConstructor = @__(@Autowired))
+@RequestMapping("/v1/client-types")
 @CrossOrigin(origins = "*", allowedHeaders = "Content-Type, Authorization", maxAge = 3600)
 public class ClientTypeResources {
 
@@ -37,6 +35,16 @@ public class ClientTypeResources {
     private final FindClientTypesPort findProductCategoriesPort;
     private final UpdateClientTypePort updateClientTypePort;
     private final ClientTypeApiMapper clientTypeApiMapper;
+
+    @Autowired
+    public ClientTypeResources(CreateClientTypePort createClientTypePort, DeleteClientTypePort deleteClientTypePort, FindByIdClientTypePort findByIdClientTypePort, FindClientTypesPort findProductCategoriesPort, UpdateClientTypePort updateClientTypePort, ClientTypeApiMapper clientTypeApiMapper) {
+        this.createClientTypePort = createClientTypePort;
+        this.deleteClientTypePort = deleteClientTypePort;
+        this.findByIdClientTypePort = findByIdClientTypePort;
+        this.findProductCategoriesPort = findProductCategoriesPort;
+        this.updateClientTypePort = updateClientTypePort;
+        this.clientTypeApiMapper = clientTypeApiMapper;
+    }
 
     @Operation(summary = "Create a new ClientType", tags = {"productCategorys", "post"})
     @ApiResponse(responseCode = "201", content = {

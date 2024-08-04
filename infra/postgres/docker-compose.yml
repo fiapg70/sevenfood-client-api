@@ -1,8 +1,8 @@
 version: "3.8"
 services:
-  mentor-postgres:
+  sevenfood-postgres:
     image: postgres:16.3-alpine
-    container_name: mentor-postgres
+    container_name: sevenfood-postgres
     restart: always
     environment:
       POSTGRES_PASSWORD: Postgres2024!
@@ -14,14 +14,14 @@ services:
     networks:
       - postgres-network
 
-  mentor-pgadmin:
+  sevenfood-pgadmin:
     image: dpage/pgadmin4:latest
-    container_name: mentor-pgadmin
+    container_name: sevenfood-pgadmin
     restart: always
     depends_on:
-      - mentor-postgres
+      - sevenfood-postgres
     environment:
-      PGADMIN_DEFAULT_EMAIL: mentor@uaijug.com.br
+      PGADMIN_DEFAULT_EMAIL: infra@sevenfood.com.br
       PGADMIN_DEFAULT_PASSWORD: PgAdmin2024!
     ports:
       - 16543:80

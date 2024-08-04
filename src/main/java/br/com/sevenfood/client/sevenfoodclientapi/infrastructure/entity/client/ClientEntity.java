@@ -79,18 +79,19 @@ public class ClientEntity extends AuditDomain {
     @Schema(description = "description of the Client.",
             example = "V$")
     @Size(min = 0, max = 255)
-    @Column(name = "description", length = 255)
+    @Column(name = "address", length = 255)
     private String address;
 
     @Schema(description = "description of the Client.",
             example = "V$")
+    @Column(name = "data_processing_consent")
     private Boolean dataProcessingConsent;
 
     @Schema(description = "Restaurant of the User.",
             example = "1", ref = "ClientCategoryEntity")
     @NotNull
     @ManyToOne
-    @JoinColumn(name = "product_category_id")
+    @JoinColumn(name = "client_type_id")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private ClientTypeEntity clientTypeEntity;
 

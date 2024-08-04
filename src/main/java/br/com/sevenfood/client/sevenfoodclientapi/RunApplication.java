@@ -6,8 +6,8 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
-@EnableJpaRepositories(basePackages = "br.com.sevenfood.product.sevenfoodproductapi.infrastructure.repository")
-@EntityScan(basePackages = "br.com.sevenfood.product.sevenfoodproductapi.infrastructure.entity")
+@EnableJpaRepositories(basePackages = "br.com.sevenfood.client.sevenfoodclientapi.infrastructure.repository")
+@EntityScan(basePackages = "br.com.sevenfood.client.sevenfoodclientapi.infrastructure.entity")
 public class RunApplication {
 
 	public static void main(String[] args) {

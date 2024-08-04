@@ -1,5 +1,5 @@
 server:
-  port: 9944
+  port: 9914
   servlet:
     context-path: /api
   error:
@@ -7,6 +7,9 @@ server:
       enabled: false
 
 spring:
+  config:
+    activate:
+      on-profile: prod
   main:
     allow-circular-references: true
   datasource:
@@ -46,6 +49,13 @@ spring:
         secret-key: ${AWS_SECRET_ACCESS_KEY}
     region:
       static: us-east-1
+
+aws:
+  privacyNotification:
+    queueName: ${AWS_SQS_QUEUE_NAME}
+    queueUrl: ${AWS_SQS_QUEUE_URL}
+    queueArn: ${AWS_SQS_QUEUE_ARN}
+
   #security:
   #  oauth2:
   #    client:

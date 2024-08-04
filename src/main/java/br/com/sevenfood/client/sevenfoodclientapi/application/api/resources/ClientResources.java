@@ -12,7 +12,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,8 +24,7 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping("/v1/products")
-@AllArgsConstructor(onConstructor = @__(@Autowired))
+@RequestMapping("/v1/clients")
 @CrossOrigin(origins = "*", allowedHeaders = "Content-Type, Authorization", maxAge = 3600)
 public class ClientResources {
 
@@ -36,6 +34,16 @@ public class ClientResources {
     private final FindClientsPort findClientsPort;
     private final UpdateClientPort updateClientPort;
     private final ClientApiMapper productApiMapper;
+
+    @Autowired
+    public ClientResources(CreateClientPort createClientPort, DeleteClientPort deleteClientPort, FindByIdClientPort findByIdClientPort, FindClientsPort findClientsPort, UpdateClientPort updateClientPort, ClientApiMapper productApiMapper) {
+        this.createClientPort = createClientPort;
+        this.deleteClientPort = deleteClientPort;
+        this.findByIdClientPort = findByIdClientPort;
+        this.findClientsPort = findClientsPort;
+        this.updateClientPort = updateClientPort;
+        this.productApiMapper = productApiMapper;
+    }
 
     @Operation(summary = "Create a new Client", tags = {"products", "post"})
     @ApiResponse(responseCode = "201", content = {

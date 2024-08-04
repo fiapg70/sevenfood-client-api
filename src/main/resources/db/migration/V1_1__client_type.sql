@@ -1,7 +1,6 @@
-create table tb_restaurant (
+create table tb_client_type (
     id bigserial not null,
     name varchar(255) not null,
-    cnpj varchar(255) not null,
     create_by varchar(255) not null,
     created_date timestamp(6) not null,
     last_modified_by varchar(255),
@@ -9,5 +8,3 @@ create table tb_restaurant (
     status varchar(255) not null,
     primary key (id)
 );
-
-CREATE UNIQUE INDEX index_restaurant_cnpj ON tb_restaurant(cnpj);

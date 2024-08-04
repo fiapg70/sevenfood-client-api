@@ -17,11 +17,16 @@ import java.util.Optional;
 
 @Slf4j
 @Component
-@AllArgsConstructor(onConstructor = @__(@Autowired))
 public class ClientTypeRepositoryAdapter implements ClientTypeRepositoryPort {
 
     private final ClientTypeRepository clientTypeRepository;
     private final ClientTypeMapper clientTypeMapper;
+
+    @Autowired
+    public ClientTypeRepositoryAdapter(ClientTypeRepository clientTypeRepository, ClientTypeMapper clientTypeMapper) {
+        this.clientTypeRepository = clientTypeRepository;
+        this.clientTypeMapper = clientTypeMapper;
+    }
 
     @Override
     public ClientType save(ClientType clientType) {

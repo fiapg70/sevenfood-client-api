@@ -16,11 +16,16 @@ import java.util.UUID;
 
 @Slf4j
 @Component
-@AllArgsConstructor(onConstructor = @__(@Autowired))
 public class ClientRepositoryAdapter implements ClientRepositoryPort {
 
     private final ClientRepository clientRepository;
     private final ClientMapper clientMapper;
+
+    @Autowired
+    public ClientRepositoryAdapter(ClientRepository clientRepository, ClientMapper clientMapper) {
+        this.clientRepository = clientRepository;
+        this.clientMapper = clientMapper;
+    }
 
     @Override
     public Client save(Client client) {
@@ -81,6 +86,12 @@ public class ClientRepositoryAdapter implements ClientRepositoryPort {
     @Override
     public Client findByCode(String code) {
         ClientEntity byCode = clientRepository.findByCode(code);
+        return clientMapper.fromEntityToModel(byCode);
+    }
+
+    @Override
+    public Client findByName(String name) {
+        ClientEntity byCode = clientRepository.findByName(name);
         return clientMapper.fromEntityToModel(byCode);
     }
 }

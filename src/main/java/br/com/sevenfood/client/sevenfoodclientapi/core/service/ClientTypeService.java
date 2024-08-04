@@ -13,10 +13,14 @@ import java.util.List;
 
 @Slf4j
 @Service
-@AllArgsConstructor(onConstructor = @__(@Autowired))
 public class ClientTypeService implements CreateClientTypePort, UpdateClientTypePort, FindByIdClientTypePort, FindClientTypesPort, DeleteClientTypePort {
 
     private final ClientTypeRepositoryPort clientTypeRepository;
+
+    @Autowired
+    public ClientTypeService(ClientTypeRepositoryPort clientTypeRepository) {
+        this.clientTypeRepository = clientTypeRepository;
+    }
 
     @Override
     public ClientType save(ClientType clientType) {
