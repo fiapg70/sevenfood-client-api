@@ -28,6 +28,8 @@ public class ClientResponse implements Serializable {
     @Size(min = 3, max = 255)
     private String name;
 
+    private String email;
+
     @Schema(description = "Name of the Product.",
             example = "Vicente")
     @Size(min = 3, max = 255)
@@ -40,11 +42,9 @@ public class ClientResponse implements Serializable {
 
     @Schema(description = "value the Product.",
             example = "V$")
-    private BigDecimal price;
-
-    @Schema(description = "value the Product.",
-            example = "V$")
     private String pic;
+
+    private String socialId; //CPF
 
     private ClientResponse clientResponse;
 

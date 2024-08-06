@@ -26,6 +26,8 @@ public interface ClientMapper {
     @Mapping(target = "id", source = "id")
     @Mapping(target = "code", source = "code")
     @Mapping(target = "clientTypeId", source = "clientTypeEntity.id")
+    @Mapping(target = "socialId", source = "socialId")
+    @Mapping(target = "email", source = "email")
     Client fromEntityToModel(ClientEntity clientEntity);
 
     List<Client> map(List<ClientEntity> clientEntities);

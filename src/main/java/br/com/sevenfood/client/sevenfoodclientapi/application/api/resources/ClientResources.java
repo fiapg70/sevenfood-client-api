@@ -54,8 +54,8 @@ public class ClientResources {
     public ResponseEntity<ClientResponse> save(@Valid @RequestBody ClientRequest request) {
         try {
             log.info("Chegada do objeto para ser salvo {}", request);
-            Client product = productApiMapper.fromRequest(request);
-            Client saved = createClientPort.save(product);
+            Client client = productApiMapper.fromRequest(request);
+            Client saved = createClientPort.save(client);
             if (saved == null) {
                 throw new ResourceFoundException("Produto não encontroado ao cadastrar");
             }

@@ -16,20 +16,20 @@ import java.util.List;
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 public class ClientService implements CreateClientPort, UpdateClientPort, FindByIdClientPort, FindClientsPort, DeleteClientPort {
 
-    private final ClientRepositoryPort productRepository;
+    private final ClientRepositoryPort clientRepository;
 
     @Override
-    public Client save(Client product) {
-        return productRepository.save(product);
+    public Client save(Client client) {
+        return clientRepository.save(client);
     }
 
     @Override
-    public Client update(Long id, Client product) {
+    public Client update(Long id, Client client) {
         Client resultById = findById(id);
         if (resultById != null) {
-            resultById.update(id, product);
+            resultById.update(id, client);
 
-            return productRepository.save(resultById);
+            return clientRepository.save(resultById);
         }
 
         return null;
@@ -37,28 +37,28 @@ public class ClientService implements CreateClientPort, UpdateClientPort, FindBy
 
     @Override
     public Client findById(Long id) {
-        return productRepository.findById(id);
+        return clientRepository.findById(id);
     }
 
     @Override
     public Client findByCode(String code) {
-        return productRepository.findByCode(code);
+        return clientRepository.findByCode(code);
     }
 
     @Override
     public List<Client> findAll() {
-       return productRepository.findAll();
+       return clientRepository.findAll();
     }
 
     @Override
     public boolean remove(Long id) {
         try {
-            Client productById = findById(id);
-            if (productById == null) {
+            Client clientById = findById(id);
+            if (clientById == null) {
                 throw new ResourceFoundException("Client not found");
             }
 
-            productRepository.remove(id);
+            clientRepository.remove(id);
             return Boolean.TRUE;
         } catch (ResourceFoundException e) {
             log.error("Erro ao remover produto: {}", e.getMessage());

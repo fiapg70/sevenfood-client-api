@@ -26,6 +26,7 @@ public interface ClientApiMapper {
     @InheritInverseConfiguration
     @Mapping(target = "id", source = "id")
     @Mapping(target = "code", source = "code")
+    @Mapping(target = "socialId", source = "socialId")
     ClientResponse fromEntity(Client client);
 
     List<ClientResponse> map(List<Client> clients);
