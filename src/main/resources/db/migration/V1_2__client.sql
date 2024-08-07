@@ -17,3 +17,6 @@ create table tb_client (
     status varchar(255) not null,
     primary key (id)
 );
+
+CREATE UNIQUE INDEX idx_client_code ON tb_client (code);
+CREATE UNIQUE INDEX idx_client_email ON tb_client (email);
