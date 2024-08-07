@@ -52,22 +52,17 @@ public class ClientResources {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<ClientResponse> save(@Valid @RequestBody ClientRequest request) {
-        try {
-            log.info("Chegada do objeto para ser salvo {}", request);
-            Client client = productApiMapper.fromRequest(request);
-            Client saved = createClientPort.save(client);
-            if (saved == null) {
-                throw new ResourceFoundException("Produto não encontroado ao cadastrar");
-            }
-
-            ClientResponse clientResponse = productApiMapper.fromEntity(saved);
-            URI location = RestUtils.getUri(clientResponse.getId());
-
-            return ResponseEntity.created(location).body(clientResponse);
-        } catch (Exception ex) {
-            log.error(Constants.ERROR_EXCEPTION_RESOURCE + "-save: {}", ex.getMessage());
-            return ResponseEntity.ok().build();
+        log.info("Chegada do objeto para ser salvo {}", request);
+        Client client = productApiMapper.fromRequest(request);
+        Client saved = createClientPort.save(client);
+        if (saved == null) {
+            throw new ResourceFoundException("Produto não encontroado ao cadastrar");
         }
+
+        ClientResponse clientResponse = productApiMapper.fromEntity(saved);
+        URI location = RestUtils.getUri(clientResponse.getId());
+
+        return ResponseEntity.created(location).body(clientResponse);
     }
 
     @Operation(summary = "Update a Client by Id", tags = {"products", "put"})
@@ -78,20 +73,15 @@ public class ClientResources {
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<ClientResponse> update(@PathVariable("id") Long id, @Valid @RequestBody ClientRequest request) {
-        try {
-            log.info("Chegada do objeto para ser alterado {}", request);
-            var product = productApiMapper.fromRequest(request);
-            Client updated = updateClientPort.update(id, product);
-            if (updated == null) {
-                throw new ResourceFoundException("Produto não encontroado ao atualizar");
-            }
-
-            ClientResponse clientResponse = productApiMapper.fromEntity(updated);
-            return ResponseEntity.ok(clientResponse);
-        } catch (Exception ex) {
-            log.error(Constants.ERROR_EXCEPTION_RESOURCE + "-update: {}", ex.getMessage());
-            return ResponseEntity.ok().build();
+        log.info("Chegada do objeto para ser alterado {}", request);
+        var product = productApiMapper.fromRequest(request);
+        Client updated = updateClientPort.update(id, product);
+        if (updated == null) {
+            throw new ResourceFoundException("Produto não encontroado ao atualizar");
         }
+
+        ClientResponse clientResponse = productApiMapper.fromEntity(updated);
+        return ResponseEntity.ok(clientResponse);
     }
 
     @Operation(summary = "Retrieve all Client", tags = {"products", "get", "filter"})
@@ -120,18 +110,13 @@ public class ClientResources {
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<ClientResponse> findOne(@PathVariable("id") Long id) {
-        try {
-            Client productSaved = findByIdClientPort.findById(id);
-            if (productSaved == null) {
-                throw new ResourceFoundException("Produto não encontrado ao buscar por id");
-            }
-
-            ClientResponse clientResponse = productApiMapper.fromEntity(productSaved);
-            return ResponseEntity.ok(clientResponse);
-        } catch (Exception ex) {
-            log.error(Constants.ERROR_EXCEPTION_RESOURCE + "-findOne: {}", ex.getMessage());
-            return ResponseEntity.ok().build();
+        Client productSaved = findByIdClientPort.findById(id);
+        if (productSaved == null) {
+            throw new ResourceFoundException("Produto não encontrado ao buscar por id");
         }
+
+        ClientResponse clientResponse = productApiMapper.fromEntity(productSaved);
+        return ResponseEntity.ok(clientResponse);
     }
 
     @Operation(
@@ -144,19 +129,13 @@ public class ClientResources {
     @GetMapping("/code/{code}")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<ClientResponse> findByCode(@PathVariable("code") String code) {
-        try {
-
-            Client productSaved = findByIdClientPort.findByCode(code);
-            if (productSaved == null) {
-                throw new ResourceFoundException("Produto não encontrado ao buscar por código");
-            }
-
-           ClientResponse clientResponse = productApiMapper.fromEntity(productSaved);
-            return ResponseEntity.ok(clientResponse);
-        } catch (Exception ex) {
-            log.error(Constants.ERROR_EXCEPTION_RESOURCE + "-findByCode: {}", ex.getMessage());
-            return ResponseEntity.ok().build();
+        Client productSaved = findByIdClientPort.findByCode(code);
+        if (productSaved == null) {
+            throw new ResourceFoundException("Produto não encontrado ao buscar por código");
         }
+
+        ClientResponse clientResponse = productApiMapper.fromEntity(productSaved);
+        return ResponseEntity.ok(clientResponse);
     }
 
     @Operation(summary = "Delete a Client by Id", tags = {"producttrus", "delete"})

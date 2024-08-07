@@ -50,7 +50,7 @@ public class ClientEntity extends AuditDomain {
             example = "V$")
     @NotNull(message = "o campo \"email\" é obrigario")
     @Size(min = 1, max = 255)
-    @Column(name = "email", length = 255)
+    @Column(name = "email", length = 255, unique = true)
     private String email;
 
     @Schema(description = "Mobile Phone number of the Driver.",

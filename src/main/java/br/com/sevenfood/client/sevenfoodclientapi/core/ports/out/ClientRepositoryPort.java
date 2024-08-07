@@ -12,4 +12,5 @@ public interface ClientRepositoryPort {
     Client update(Long id, Client client);
     Client findByCode(String code);
     Client findByName(String name);
+    Client findByEmail(String email);
 }
