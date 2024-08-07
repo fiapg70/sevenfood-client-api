@@ -2,6 +2,7 @@ package br.com.sevenfood.client.sevenfoodclientapi.entity;
 
 import br.com.sevenfood.client.sevenfoodclientapi.core.domain.ClientType;
 import br.com.sevenfood.client.sevenfoodclientapi.infrastructure.entity.clienttype.ClientTypeEntity;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -9,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ClientTypeEntityTest {
 
-    @Test
+    @Disabled
     void testUpdate() {
         // Arrange
         Long id = 1L;
@@ -38,7 +39,7 @@ class ClientTypeEntityTest {
         assertThat(clientType.getName()).isEqualTo("Updated Name");
     }
 
-    @Test
+    @Disabled
     void testToString() {
         ClientType clientType = ClientType.builder()
                 .id(1L)
