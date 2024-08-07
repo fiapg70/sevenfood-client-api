@@ -94,4 +94,10 @@ public class ClientRepositoryAdapter implements ClientRepositoryPort {
         ClientEntity byCode = clientRepository.findByName(name);
         return clientMapper.fromEntityToModel(byCode);
     }
+
+    @Override
+    public Client findByEmail(String email) {
+        ClientEntity byEmail = clientRepository.findByEmail(email);
+        return clientMapper.fromEntityToModel(byEmail);
+    }
 }

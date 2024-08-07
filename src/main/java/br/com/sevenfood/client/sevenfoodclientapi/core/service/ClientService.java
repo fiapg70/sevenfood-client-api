@@ -19,7 +19,11 @@ public class ClientService implements CreateClientPort, UpdateClientPort, FindBy
     private final ClientRepositoryPort clientRepository;
 
     @Override
-    public Client save(Client client) {
+    public Client save(Client client) throws ResourceFoundException {
+        Client byEmail = findByEmail(client.getEmail());
+        if (byEmail != null) {
+            throw new ResourceFoundException("Client already exists");
+        }
         return clientRepository.save(client);
     }
 
@@ -38,6 +42,11 @@ public class ClientService implements CreateClientPort, UpdateClientPort, FindBy
     @Override
     public Client findById(Long id) {
         return clientRepository.findById(id);
+    }
+
+    @Override
+    public Client findByEmail(String email) {
+        return clientRepository.findByEmail(email);
     }
 
     @Override

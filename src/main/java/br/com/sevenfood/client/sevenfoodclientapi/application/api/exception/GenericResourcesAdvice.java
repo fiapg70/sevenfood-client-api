@@ -1,6 +1,6 @@
 package br.com.sevenfood.client.sevenfoodclientapi.application.api.exception;
 
-import br.com.sevenfood.product.sevenfoodproductapi.application.api.dto.response.GenericErrorResponse;
+import br.com.sevenfood.client.sevenfoodclientapi.application.api.dto.response.GenericErrorResponse;
 import br.com.sevenfood.product.sevenfoodproductapi.commons.exception.CNPJFoundException;
 import br.com.sevenfood.product.sevenfoodproductapi.commons.exception.CPFFoundException;
 import jakarta.persistence.EntityNotFoundException;
@@ -26,6 +26,13 @@ public class GenericResourcesAdvice {
     public ResponseEntity<GenericErrorResponse> handleException(Exception ex) {
         String errorMessage = "Erro ao processar a requisição. Detalhes: " + ex.getMessage();
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new GenericErrorResponse(errorMessage));
+    }
+
+    @ExceptionHandler(ResourceFoundException.class)
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+    public ResponseEntity<ErrorMessage> handleResourceFoundException(final ResourceFoundException ex) { //AlreadyExistsException
+        ErrorMessage errorMessage = createErrorMessage(ex.getMessage());
+        return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(CNPJFoundException.class)
