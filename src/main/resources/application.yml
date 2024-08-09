@@ -63,6 +63,10 @@ api:
   gateway:
     url: ${API_GATEWAY_URL_PRIVACY_NOTIFICATION_STATUS}
 
+swagger:
+  api:
+    url: https://localhost:9914/api
+
   #security:
   #  oauth2:
   #    client:
