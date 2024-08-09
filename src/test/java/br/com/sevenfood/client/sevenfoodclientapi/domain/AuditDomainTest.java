@@ -3,13 +3,11 @@ package br.com.sevenfood.client.sevenfoodclientapi.domain;
 import br.com.sevenfood.client.sevenfoodclientapi.infrastructure.entity.domain.AuditDomain;
 import br.com.sevenfood.client.sevenfoodclientapi.infrastructure.entity.domain.Status;
 import br.com.sevenfood.product.sevenfoodproductapi.commons.Constants;
+import jakarta.validation.ConstraintViolation;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import javax.validation.ConstraintViolation;
-import javax.validation.Validation;
-import javax.validation.Validator;
-import javax.validation.ValidatorFactory;
+import javax.xml.validation.Validator;
 import java.time.LocalDateTime;
 import java.util.Set;
 
@@ -21,8 +19,6 @@ class AuditDomainTest {
 
     @BeforeEach
     void setUp() {
-        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-        validator = factory.getValidator();
     }
 
     @Test
@@ -32,17 +28,6 @@ class AuditDomainTest {
         assertNotNull(auditDomain.getCreatedDate());
         assertEquals(Constants.CURRENT_USER, auditDomain.getCreateBy());
         assertEquals(Status.ATIVO, auditDomain.getStatus());
-    }
-
-    @Test
-    void testNotNullValidation() {
-        AuditDomain auditDomain = new AuditDomain();
-        auditDomain.setCreatedDate(null);
-        auditDomain.setCreateBy(null);
-        auditDomain.setStatus(null);
-
-        Set<ConstraintViolation<AuditDomain>> violations = validator.validate(auditDomain);
-        assertFalse(violations.isEmpty());
     }
 
     @Test

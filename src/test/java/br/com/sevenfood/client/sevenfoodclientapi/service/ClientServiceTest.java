@@ -19,9 +19,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import javax.validation.Validation;
-import javax.validation.Validator;
-import javax.validation.ValidatorFactory;
+import javax.xml.validation.Validator;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -60,9 +58,6 @@ class ClientServiceTest {
     @Mock
     UpdateClientPort updateClientPort;
 
-    private Validator validator;
-
-
     private ClientEntity getClientEntity(ClientTypeEntity clientTypeEntity) {
         return ClientEntity.builder()
                 .name("Bebida")
@@ -98,8 +93,6 @@ class ClientServiceTest {
     @BeforeEach
     void init() {
         MockitoAnnotations.initMocks(this);
-        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-        validator = factory.getValidator();
     }
 
     @Test
