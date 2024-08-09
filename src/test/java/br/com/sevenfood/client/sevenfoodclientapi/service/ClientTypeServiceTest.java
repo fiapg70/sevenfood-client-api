@@ -7,6 +7,8 @@ import br.com.sevenfood.client.sevenfoodclientapi.core.ports.out.ClientTypeRepos
 import br.com.sevenfood.client.sevenfoodclientapi.core.service.ClientTypeService;
 import br.com.sevenfood.client.sevenfoodclientapi.infrastructure.entity.clienttype.ClientTypeEntity;
 import br.com.sevenfood.client.sevenfoodclientapi.infrastructure.repository.ClientTypeRepository;
+import jakarta.validation.Validation;
+import jakarta.validation.ValidatorFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.exception.DataException;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,7 +19,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import javax.validation.*;
+import javax.xml.validation.Validator;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -97,8 +99,6 @@ class ClientTypeServiceTest {
     @BeforeEach
     void init() {
         MockitoAnnotations.initMocks(this);
-        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-        validator = factory.getValidator();
     }
 
     @Test
@@ -250,7 +250,7 @@ class ClientTypeServiceTest {
 
         when(updateClientTypePort.update(productId, clientType)).thenReturn(clientType);
 
-       ClientType result = updateClientTypePort.update(productId, clientType);
+        ClientType result = updateClientTypePort.update(productId, clientType);
 
         assertNotNull(result);
         assertEquals("Updated Name", result.getName());
