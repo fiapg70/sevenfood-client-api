@@ -7,6 +7,8 @@ server:
       enabled: false
 
 spring:
+  application:
+    name: sevenfood-client-api
   config:
     activate:
       on-profile: prod
@@ -66,6 +68,23 @@ api:
 swagger:
   api:
     url: https://localhost:9914/api
+
+logging:
+  pattern:
+    level: '%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]'
+
+management:
+  tracing:
+    baggage:
+      enabled: true
+    enabled: true
+    propagation:
+      type: 'W3C'
+    sampling:
+      probability: 1.0 # para enviar 100% da amostra'
+  zipkin:
+    tracing:
+      endpoint: http://54.85.99.121:9411/api/v2/spans # alterar o endereco do Zipkin'
 
   #security:
   #  oauth2:
