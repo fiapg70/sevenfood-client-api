@@ -7,6 +7,8 @@ server:
       enabled: false
 
 spring:
+  application:
+    name: sevenfood-client-api
   config:
     activate:
       on-profile: prod
@@ -77,12 +79,12 @@ management:
       enabled: true
     enabled: true
     propagation:
-      type: 'w3c '
+      type: 'W3C'
     sampling:
       probability: 1.0 # para enviar 100% da amostra'
   zipkin:
     tracing:
-      endpoint: 'http://18.212.8.96/api/v2/spans # alterar o endereco do Zipkin'
+      endpoint: http://54.85.99.121:9411/api/v2/spans # alterar o endereco do Zipkin'
 
   #security:
   #  oauth2:
